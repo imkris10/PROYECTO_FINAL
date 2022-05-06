@@ -140,5 +140,3 @@ void ordenar(const int cantidad){
     }
     system("PAUSE");
 }
-
-
