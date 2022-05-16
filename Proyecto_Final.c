@@ -18,7 +18,7 @@ int main()
 {
  int opcion,cantidad;
  do{
-     printf ("LIGA DE FUTBOL\n");
+     printf ("\tLIGA DE FUTBOL\n");
      printf("[1] Registrar equipo\n");
      printf("[2] Mostrar equipos\n");
      printf("[3] Ordenar\n");
@@ -27,7 +27,7 @@ int main()
      scanf("%d",&opcion);
      switch(opcion){
          case 1:
-         printf("Ingresa la cantidad de equipos:\n ");
+         printf("Ingresa la cantidad de equipos: ");
          scanf("%d",&cantidad);
          recogida(cantidad);
          break;
@@ -55,23 +55,24 @@ void recogida(const int cantidad){
     int i;
     for(i=0;i<cantidad;i++){
         system("cls");
-        printf("\t Registro del equipo %d",i+1);
+        printf("\tRegistro del equipo %d",i+1);
         fflush(stdin);
-        printf("\n Nombre del equipo:");
+        printf("\n -Nombre del equipo: ");
         gets(datos[i].Equipo);
-        printf("\n Victorias:");
+        printf(" -Victorias: ");
         scanf("%d", &datos[i].victorias);
-        printf("\n Derrotas: ");
+        printf(" -Derrotas: ");
         scanf("%d", &datos[i].derrotas);
         fflush(stdin);
-        printf("\n Mejor Jugador: ");
+        printf(" -Mejor Jugador: ");
         gets(datos[i].mejorJugador);
-        printf("\n Goles a favor: ");
+        printf(" -Goles a favor: ");
         scanf("%d", &datos[i].golesFavor);
-        printf("\n Goles en contra: ");
+        printf(" -Goles en contra: ");
         scanf("%d", &datos[i].golesContra);
         printf("\n");
     }
+    system("cls");
     archivo = fopen("futbol.txt", "w+");
     if (archivo)
     {	
@@ -90,17 +91,21 @@ void muestra(const int cantidad){
 	    fclose(archivo);
     }
     int i;
-    for ( i = 0; i < cantidad; i++)
+    system("cls");
+	for ( i = 0; i < cantidad; i++)
 	{
-	    printf("\nEquipo %d",i+1);
-	    printf("\n Nombre del equipo: %s",datos[i].Equipo);
-	    printf("\n Victorias: %d",datos[i].victorias);
-	    printf("\n Derrotas: %d",datos[i].derrotas);
-	    printf("\n Mejor Jugador: %s",datos[i].mejorJugador);
-	    printf("\n Goles a favor: %d",datos[i].golesFavor);
-	    printf("\n Goles en contra: %d\n",datos[i].golesContra);
+	    printf("\tEquipo %d",i+1);
+	    printf("\n -Nombre del equipo: %s",datos[i].Equipo);
+	    printf("\n -Victorias: %d",datos[i].victorias);
+	    printf("\n -Derrotas: %d",datos[i].derrotas);
+	    printf("\n -Mejor Jugador: %s",datos[i].mejorJugador);
+	    printf("\n -Goles a favor: %d",datos[i].golesFavor);
+	    printf("\n -Goles en contra: %d\n",datos[i].golesContra);
 	    printf("\n");
 	}
+	system("pause");
+	system("cls");
+	 fclose(archivo);
 }
 
 void ordenar(const int cantidad){
@@ -110,33 +115,34 @@ void ordenar(const int cantidad){
 	if (archivo)
 	{
 	    fread(datos, sizeof(struct info), cantidad, archivo);
-	    fclose(archivo);
+	    
     }
     int elementos,minimo,menor,*puntero,auxiliar,i,j;
     puntero=(int *)malloc(cantidad *sizeof(int));
-    printf("los equipos ordenados son \n");
-    for(i=0;i<cantidad;i++){
-    minimo=(puntero[i]=datos[i].victorias);
-    menor=i;
-    for(j=i;j<cantidad;j++)
-    {			
-        if(puntero[j]>minimo)
-        {				
-        minimo=puntero[j];
-        menor=j;
-        }	
-        }	
-        auxiliar=puntero[i];
-        puntero[i]=puntero[menor];
-        puntero[menor]=auxiliar;
-        }
+    system("cls");
+	printf("Los equipos ordenados son: \n");
     
-        for(i=0;i<cantidad;i++)
-        {	
-    printf("%i Lugar : \n",i-cantidad);
+    for(i=0;i<cantidad;i++){
+    puntero[i]=datos[i].victorias;
+    }
+  for(i=0;i<cantidad;i++){	
+      minimo=puntero[i];
+  menor=i;		for(j=i;j<cantidad;j++)
+  {			if(puntero[j]>minimo)
+  {				minimo=puntero[j];	
+  menor=j;	
+  }	
+  }		auxiliar=puntero[i];
+  puntero[i]=puntero[menor];	
+  puntero[menor]=auxiliar;
+  }
+    for(i=0;i<cantidad;i++){
+    printf("%i- Lugar : \n",i+1);
     printf("Numero de victorias: %d \n",puntero[i]);
-    printf("Nombre del equipo: %s \n",datos[i].Equipo);
  	printf("\n");
+    
     }
     system("PAUSE");
+    system("cls");
+    fclose(archivo);
 }
